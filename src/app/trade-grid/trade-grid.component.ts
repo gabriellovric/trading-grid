@@ -53,7 +53,7 @@ export class TradeGridComponent {
     sortable: true,
     filter: true,
   };
-
+  public chatOpen: boolean = false;
   public username: string = '';
   public trades: Trade[] = [];
 
@@ -78,5 +78,9 @@ export class TradeGridComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.complete();
   }
 }

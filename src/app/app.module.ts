@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { TradeGridComponent } from './trade-grid/trade-grid.component';
+import { ChatCardComponent } from './chat-card/chat-card.component';
 
 @NgModule({
-  declarations: [AppComponent, TradeGridComponent, LoginFormComponent],
+  declarations: [AppComponent, TradeGridComponent, LoginFormComponent, ChatCardComponent],
   imports: [
     BrowserModule,
     FormsModule,

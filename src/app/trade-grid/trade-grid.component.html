@@ -6,6 +6,9 @@
       </ul>
       <ul>
         <li>
+          <button (click)="chatOpen = true">Chat</button>
+        </li>
+        <li>
           <a href="#" (click)="logout()">
             <svg
               height="25px"
@@ -38,3 +41,4 @@
     ></ag-grid-angular>
   </article>
 </main>
+<app-chat-card *ngIf="chatOpen" (closeEvent)="chatOpen = false"></app-chat-card>

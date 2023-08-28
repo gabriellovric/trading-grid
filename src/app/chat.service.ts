@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TradeSocketService {
+export class ChatService {
   connection$: WebSocketSubject<any> | null = null;
 
   constructor() {}
 
   connect(userId: string): Observable<any> {
-    this.connection$ = webSocket(`${environment.trade_endpoint}/${userId}`);
+    this.connection$ = webSocket({
+      url: `${environment.chat_endpoint}/${userId}`,
+      deserializer: ({ data }) => data,
+      serializer: (data) => data,
+    });
     return this.connection$;
   }
 
