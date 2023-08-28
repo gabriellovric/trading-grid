@@ -1,10 +1,12 @@
-<article>
-  <h1>Welcome to the Trading Grid</h1>
-  <input
-    type="text"
-    [(ngModel)]="username"
-    placeholder="Please enter your username"
-    required
-  />
-  <button [disabled]="validate()" (click)="login()">Enter</button>
-</article>
+<main class="container">
+  <article>
+    <h1>Welcome to the Trading Grid</h1>
+    <input
+      type="text"
+      [(ngModel)]="username"
+      placeholder="Please enter your username"
+      required
+    />
+    <button [disabled]="validate()" (click)="login()">Enter</button>
+  </article>
+</main>

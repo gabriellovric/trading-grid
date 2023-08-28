@@ -54,6 +54,7 @@ export class TradeGridComponent {
     filter: true,
   };
 
+  public username: string = '';
   public trades: Trade[] = [];
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
@@ -66,12 +67,16 @@ export class TradeGridComponent {
   ) {}
 
   ngOnInit(): void {
-    const username = this.authService.getUsername();
+    this.username = this.authService.getUsername();
 
     const tradeSub$ = this.tradeService
-      .connect(username)
+      .connect(this.username)
       .pipe(takeUntil(this.destroyed$));
 
     tradeSub$.subscribe((trade) => (this.trades = [trade, ...this.trades]));
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

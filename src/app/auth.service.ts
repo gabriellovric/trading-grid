@@ -12,6 +12,11 @@ export class AuthService {
     this.router.navigate(['/dashboard']);
   }
 
+  logout() {
+    localStorage.removeItem('username');
+    this.router.navigate(['/login']);
+  }
+
   isLoggedIn() {
     return localStorage.getItem('username') !== null;
   }
