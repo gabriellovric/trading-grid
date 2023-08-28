@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { TradeSocketService } from './trade-socket.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   // Each Column Definition results in one Column.
   public columnDefs: ColDef[] = [
     { field: 'company', headerName: 'Company' },
@@ -32,7 +33,21 @@ export class AppComponent {
   // For accessing the Grid's API
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
-  constructor(private http: HttpClient) {}
+  destroyed$ = new Subject();
+  messages: string[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private tradeService: TradeSocketService
+  ) {}
+
+  ngOnInit(): void {
+    const tradeSub$ = this.tradeService
+      .connect('test')
+      .pipe(takeUntil(this.destroyed$));
+
+    tradeSub$.subscribe((message) => this.messages.push(message));
+  }
 
   // Example load data from server
   onGridReady(params: GridReadyEvent) {

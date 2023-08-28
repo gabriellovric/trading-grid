@@ -12,3 +12,6 @@
   (gridReady)="onGridReady($event)"
   (cellClicked)="onCellClicked($event)"
 ></ag-grid-angular>
+<ul>
+  <li *ngFor="let message of messages">{{ message }}</li>
+</ul>
