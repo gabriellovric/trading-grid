@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '../auth.service';
 import {
   dateFormatter,
   dateTimeFormatter,
@@ -59,11 +60,16 @@ export class TradeGridComponent {
 
   destroyed$ = new Subject();
 
-  constructor(private tradeService: TradeSocketService) {}
+  constructor(
+    private authService: AuthService,
+    private tradeService: TradeSocketService
+  ) {}
 
   ngOnInit(): void {
+    const username = this.authService.getUsername();
+
     const tradeSub$ = this.tradeService
-      .connect('test')
+      .connect(username)
       .pipe(takeUntil(this.destroyed$));
 
     tradeSub$.subscribe((trade) => (this.trades = [trade, ...this.trades]));
