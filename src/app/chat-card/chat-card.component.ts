@@ -18,7 +18,7 @@ export class ChatCardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private chatService: ChatService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.username = this.authService.getUsername();
@@ -31,10 +31,12 @@ export class ChatCardComponent implements OnInit {
   }
 
   validate() {
-    this.message.length > 0;
+    return this.message.length > 0;
   }
 
   send() {
+    if (!this.validate()) return;
+
     this.chatService.send(this.message);
     this.message = '';
   }
@@ -42,12 +44,6 @@ export class ChatCardComponent implements OnInit {
   close() {
     this.chatService.closeConnection();
     this.closeEvent.emit();
-  }
-
-  countLines() {
-    const lines = this.message.split('\n').length;
-
-    return lines > 3 ? 3 : lines;
   }
 
   ngOnDestroy() {

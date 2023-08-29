@@ -9,13 +9,16 @@ import { AuthService } from '../auth.service';
 export class LoginFormComponent {
   username: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   validate() {
-    return this.username.length < 3;
+    return this.username.length >= 3;
   }
 
   login() {
+    console.log("oiljiojoijoijoijoij")
+    if (!this.validate()) return;
+
     this.authService.login(this.username);
   }
 }

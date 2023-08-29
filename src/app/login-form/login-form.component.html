@@ -6,7 +6,8 @@
       [(ngModel)]="username"
       placeholder="Please enter your username"
       required
+      (keyup.enter)="login()"
     />
-    <button [disabled]="validate()" (click)="login()">Enter</button>
+    <button [disabled]="!validate()" (click)="login()">Enter</button>
   </article>
 </main>
